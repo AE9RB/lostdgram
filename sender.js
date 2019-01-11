@@ -18,7 +18,10 @@ function sendgrams() {
                 });
                 return;
             }
-            socket.send(`${pos++} ${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}`, PORT, () => {
+            socket.send(`${pos++} ${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}`, PORT, (e) => {
+                if (e) {
+                    console.log(e);
+                }
                 if (WOULD_YOU_LIKE_ME_TO_DROP_BUFFERS) {
                     funkytown();
                 } else {
