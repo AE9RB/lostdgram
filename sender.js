@@ -7,10 +7,10 @@ const GRAMS = 1000;
 const FILL = '##################################################'
 
 function sendgrams() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         let pos = 0;
         const socket = dgram.createSocket('udp4');
-        const funkytown = () => {
+        function funkytown() {
             if (pos >= GRAMS) {
                 socket.close(() => {
                     console.log('Closed.');
@@ -18,7 +18,7 @@ function sendgrams() {
                 });
                 return;
             }
-            socket.send(`${pos++} ${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}`, PORT, (error) => {
+            socket.send(`${pos++} ${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}${FILL}`, PORT, () => {
                 if (WOULD_YOU_LIKE_ME_TO_DROP_BUFFERS) {
                     funkytown();
                 } else {
@@ -31,11 +31,7 @@ function sendgrams() {
 }
 
 (async () => {
-    try {
-        console.log('Sending.')
-        await sendgrams();
-        await new Promise((resolve, reject) => {}); // poison
-    } catch(e) {
-        throw(e)
-    }
+    console.log('Sending.')
+    await sendgrams();
+    console.log('Done.')
 })()
