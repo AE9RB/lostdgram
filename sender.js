@@ -11,7 +11,10 @@ function sendgrams() {
     const socket = dgram.createSocket('udp4');
     function funkytown() {
         if (pos >= GRAMS) {
-            socket.close(() => {
+            socket.close((e) => {
+                if (e) {
+                    console.log(e);
+                }
                 console.log('Closed.');
             });
             return;
